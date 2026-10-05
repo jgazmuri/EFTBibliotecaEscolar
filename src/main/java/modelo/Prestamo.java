@@ -57,4 +57,15 @@ public class Prestamo {
         }
         return ChronoUnit.DAYS.between(fechaDevolucion, LocalDate.now());
     }
+
+    public String getEstadoTexto() {
+        if (devuelto) {
+            return "Devuelto";
+        }
+        if (estaAtrasado()) {
+            return "ATRASADO (" + diasAtraso() + " días)";
+        }
+        return "Pendiente";
+    }
+
 }
