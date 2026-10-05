@@ -1,21 +1,15 @@
 package main;
 
-import util.DatabaseConnection;
-
-import java.sql.Connection;
-import java.sql.SQLException;
+import dao.LibroDAO;
+import modelo.Libro;
 
 public class Main {
 
     public static void main(String[] args) {
-        DatabaseConnection a = DatabaseConnection.getInstance();
-        DatabaseConnection b = DatabaseConnection.getInstance();
-        System.out.println("¿Es la misma instancia (Singleton)? " + (a == b));
-
-        try (Connection con = a.getConnection()) {
-            System.out.println("Conexión exitosa a la base de datos: " + con.getCatalog());
-        } catch (SQLException e) {
-            System.out.println("Error de conexión: " + e.getMessage());
+        LibroDAO libroDAO = new LibroDAO();
+        for (Libro l : libroDAO.listarTodos()) {
+            System.out.println(l.getId() + " - " + l.getTitulo()
+                    + " | " + l.getCategoria() + " | stock: " + l.getStock());
         }
     }
 }
